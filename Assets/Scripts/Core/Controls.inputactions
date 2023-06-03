@@ -15,9 +15,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "DeltaMouse",
+                    "name": "MouseDelta",
                     "type": "Value",
                     "id": "46efbb79-4aa4-4a00-bc2e-69cf4cdbcc4b",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "MousePosition",
+                    "type": "Value",
+                    "id": "51605fb3-f0ad-4aca-a3a2-689121638250",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -43,7 +52,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse",
-                    "action": "DeltaMouse",
+                    "action": "MouseDelta",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fccd3f2d-e317-49e2-8d5b-0a1f998edeb7",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse",
+                    "action": "MousePosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

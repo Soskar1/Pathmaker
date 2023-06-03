@@ -37,9 +37,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""DeltaMouse"",
+                    ""name"": ""MouseDelta"",
                     ""type"": ""Value"",
                     ""id"": ""46efbb79-4aa4-4a00-bc2e-69cf4cdbcc4b"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""51605fb3-f0ad-4aca-a3a2-689121638250"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -65,7 +74,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Mouse"",
-                    ""action"": ""DeltaMouse"",
+                    ""action"": ""MouseDelta"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fccd3f2d-e317-49e2-8d5b-0a1f998edeb7"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse"",
+                    ""action"": ""MousePosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -89,7 +109,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         // Brush
         m_Brush = asset.FindActionMap("Brush", throwIfNotFound: true);
         m_Brush_Draw = m_Brush.FindAction("Draw", throwIfNotFound: true);
-        m_Brush_DeltaMouse = m_Brush.FindAction("DeltaMouse", throwIfNotFound: true);
+        m_Brush_MouseDelta = m_Brush.FindAction("MouseDelta", throwIfNotFound: true);
+        m_Brush_MousePosition = m_Brush.FindAction("MousePosition", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -152,13 +173,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Brush;
     private List<IBrushActions> m_BrushActionsCallbackInterfaces = new List<IBrushActions>();
     private readonly InputAction m_Brush_Draw;
-    private readonly InputAction m_Brush_DeltaMouse;
+    private readonly InputAction m_Brush_MouseDelta;
+    private readonly InputAction m_Brush_MousePosition;
     public struct BrushActions
     {
         private @Controls m_Wrapper;
         public BrushActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Draw => m_Wrapper.m_Brush_Draw;
-        public InputAction @DeltaMouse => m_Wrapper.m_Brush_DeltaMouse;
+        public InputAction @MouseDelta => m_Wrapper.m_Brush_MouseDelta;
+        public InputAction @MousePosition => m_Wrapper.m_Brush_MousePosition;
         public InputActionMap Get() { return m_Wrapper.m_Brush; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -171,9 +194,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Draw.started += instance.OnDraw;
             @Draw.performed += instance.OnDraw;
             @Draw.canceled += instance.OnDraw;
-            @DeltaMouse.started += instance.OnDeltaMouse;
-            @DeltaMouse.performed += instance.OnDeltaMouse;
-            @DeltaMouse.canceled += instance.OnDeltaMouse;
+            @MouseDelta.started += instance.OnMouseDelta;
+            @MouseDelta.performed += instance.OnMouseDelta;
+            @MouseDelta.canceled += instance.OnMouseDelta;
+            @MousePosition.started += instance.OnMousePosition;
+            @MousePosition.performed += instance.OnMousePosition;
+            @MousePosition.canceled += instance.OnMousePosition;
         }
 
         private void UnregisterCallbacks(IBrushActions instance)
@@ -181,9 +207,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Draw.started -= instance.OnDraw;
             @Draw.performed -= instance.OnDraw;
             @Draw.canceled -= instance.OnDraw;
-            @DeltaMouse.started -= instance.OnDeltaMouse;
-            @DeltaMouse.performed -= instance.OnDeltaMouse;
-            @DeltaMouse.canceled -= instance.OnDeltaMouse;
+            @MouseDelta.started -= instance.OnMouseDelta;
+            @MouseDelta.performed -= instance.OnMouseDelta;
+            @MouseDelta.canceled -= instance.OnMouseDelta;
+            @MousePosition.started -= instance.OnMousePosition;
+            @MousePosition.performed -= instance.OnMousePosition;
+            @MousePosition.canceled -= instance.OnMousePosition;
         }
 
         public void RemoveCallbacks(IBrushActions instance)
@@ -213,6 +242,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     public interface IBrushActions
     {
         void OnDraw(InputAction.CallbackContext context);
-        void OnDeltaMouse(InputAction.CallbackContext context);
+        void OnMouseDelta(InputAction.CallbackContext context);
+        void OnMousePosition(InputAction.CallbackContext context);
     }
 }

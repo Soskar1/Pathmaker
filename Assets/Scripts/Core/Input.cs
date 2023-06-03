@@ -4,10 +4,12 @@ namespace Pathmaker.Core
 {
     public class Input : MonoBehaviour
     {
-        private Controls _controls;
+        public Controls Controls { get; private set; }
 
-        private void OnEnable() => _controls.Enable();
-        private void OnDisable() => _controls.Disable();
-        private void Awake() => _controls = new Controls();
+        public void Initialize() => Controls = new Controls();
+        public void Enable() => Controls.Enable();
+        public void Disable() => Controls.Disable();
+
+        public Vector2 GetMousePosition() => Controls.Brush.MousePosition.ReadValue<Vector2>();
     }
 }
