@@ -11,6 +11,11 @@ namespace Pathmaker.Core
         [SerializeField] private TrailRenderer _trail;
         [SerializeField] private float _velocityTrailThreshold;
 
+        [SerializeField] private SpriteRenderer _faceRenderer;
+        [SerializeField] private Sprite _happyFace;
+        [SerializeField] private Sprite _notSatisfiedFace;
+        [SerializeField] private Sprite _deadFace;
+
         [SerializeField] private GroundCheck _groundCheck;
 
         private bool _gameOver = true;
@@ -28,12 +33,18 @@ namespace Pathmaker.Core
             if (_rb2d.velocity.magnitude >= _velocityTrailThreshold)
             {
                 if (!_trail.enabled)
+                {
                     _trail.enabled = true;
+                    _faceRenderer.sprite = _happyFace;
+                }
             }
             else
             {
                 if (_trail.enabled)
+                {
                     _trail.enabled = false;
+                    _faceRenderer.sprite = _notSatisfiedFace;
+                }
             }
 
             if (_groundCheck.CheckForGround() && _rb2d.velocity.magnitude <= _velocityThreshold)
@@ -46,6 +57,7 @@ namespace Pathmaker.Core
             _rb2d.isKinematic = true;
 
             _gameOver = true;
+            _faceRenderer.sprite = _deadFace;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
