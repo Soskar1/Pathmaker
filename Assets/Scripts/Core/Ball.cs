@@ -11,9 +11,9 @@ namespace Pathmaker.Core
         [SerializeField] private TrailRenderer _trail;
         [SerializeField] private float _velocityTrailThreshold;
 
-        private bool _gameOver = true;
+        [SerializeField] private GroundCheck _groundCheck;
 
-        private float _timer = 2f;
+        private bool _gameOver = true;
 
         private void OnEnable() => _game.EndingGame += Deactivate;
         private void OnDisable() => _game.EndingGame -= Deactivate;
@@ -36,13 +36,7 @@ namespace Pathmaker.Core
                     _trail.enabled = false;
             }
 
-            if (_timer > 0)
-            {
-                _timer -= Time.deltaTime;
-                return;
-            }
-
-            if (_rb2d.velocity.magnitude <= _velocityThreshold)
+            if (_groundCheck.CheckForGround() && _rb2d.velocity.magnitude <= _velocityThreshold)
                 _game.GameOver();
         }
 
