@@ -7,6 +7,7 @@ namespace Pathmaker.Core
         [SerializeField] private Input _input;
         [SerializeField] private Line _linePrefab;
         [SerializeField] private float _updateDistance;
+        [SerializeField] private LayerMask _ballLayer;
 
         private Camera _camera;
         private Line _currentLine;
@@ -23,6 +24,12 @@ namespace Pathmaker.Core
 
             Vector2 mousePosition = _input.GetMousePosition();
             Vector2 worldPosition = _camera.ScreenToWorldPoint(mousePosition);
+
+            if (CheckForBall(worldPosition))
+            {
+                StopDrawing();
+                return;
+            }
 
             if (Vector2.Distance(worldPosition, _lastPoint) >= _updateDistance)
             {
@@ -46,6 +53,16 @@ namespace Pathmaker.Core
         {
             _currentLine = null;
             _isDrawing = false;
+        }
+
+        private bool CheckForBall(Vector2 pos)
+        {
+            RaycastHit2D hitInfo = Physics2D.Raycast(pos, Vector2.right, 0.1f, _ballLayer);
+
+            if (hitInfo.collider != null)
+                return true;
+
+            return false;
         }
     }
 }

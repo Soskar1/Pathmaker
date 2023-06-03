@@ -1,6 +1,6 @@
 namespace Pathmaker.Core.TriggerableObjects
 {
-    interface Trigerrable
+    interface Triggerrable
     {
         void Trigger();
     }

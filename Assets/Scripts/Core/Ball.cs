@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Pathmaker.Core
 {
-    public class Ball : MonoBehaviour
+    public class Ball : MonoBehaviour, IInitializable
     {
         [SerializeField] private Game _game;
         [SerializeField] private Rigidbody2D _rb2d;
@@ -11,10 +11,14 @@ namespace Pathmaker.Core
         [SerializeField] private TrailRenderer _trail;
         [SerializeField] private float _velocityTrailThreshold;
 
-        private bool _gameOver = false;
+        private bool _gameOver = true;
+
+        private float _timer = 2f;
 
         private void OnEnable() => _game.EndingGame += Deactivate;
         private void OnDisable() => _game.EndingGame -= Deactivate;
+
+        public void Initialize() => _gameOver = false;
 
         private void Update()
         {
@@ -31,7 +35,12 @@ namespace Pathmaker.Core
                 if (_trail.enabled)
                     _trail.enabled = false;
             }
-                
+
+            if (_timer > 0)
+            {
+                _timer -= Time.deltaTime;
+                return;
+            }
 
             if (_rb2d.velocity.magnitude <= _velocityThreshold)
                 _game.GameOver();
@@ -47,7 +56,7 @@ namespace Pathmaker.Core
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.TryGetComponent(out Trigerrable triggerableObject))
+            if (collision.TryGetComponent(out Triggerrable triggerableObject))
                 triggerableObject.Trigger();
         }
     }

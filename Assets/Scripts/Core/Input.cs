@@ -6,7 +6,7 @@ namespace Pathmaker.Core
     {
         public Controls Controls { get; private set; }
 
-        public void Initialize() => Controls = new Controls();
+        public void Awake() => Controls = new Controls();
         public void Enable() => Controls.Enable();
         public void Disable() => Controls.Disable();
 
