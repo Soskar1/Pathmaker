@@ -1,17 +1,17 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Pathmaker.Core
 {
-    public class StarSpawner : MonoBehaviour, IInitializable
+    public class Spawner : MonoBehaviour, IInitializable
     {
+        [SerializeField] private List<GameObject> _structures;
         [SerializeField] private Ball _ball;
-        [SerializeField] private Star _prefab;
         [SerializeField] private float _spawnRate;
-        [SerializeField] private Vector2 _offset;
         [SerializeField] private float _velocityThreshold;
+        [SerializeField] private float _offset;
 
-        private bool _canSpawn = false;
-
+        private bool _canSpawn;
         private float _timer;
 
         private void Awake() => _timer = _spawnRate;
@@ -25,10 +25,15 @@ namespace Pathmaker.Core
 
             if (_timer <= 0)
             {
-                Vector2 spawnPosition = CalculateSpawnPosition();
-                Instantiate(_prefab, spawnPosition, Quaternion.identity);
-
                 _timer = _spawnRate;
+
+                GameObject structure = _structures[Random.Range(0, _structures.Count)];
+                Vector2 position = CalculatePosition();
+
+                if (position == Vector2.zero)
+                    return;
+
+                Instantiate(structure, position, Quaternion.identity);
             }
             else
             {
@@ -36,12 +41,14 @@ namespace Pathmaker.Core
             }
         }
 
-        private Vector2 CalculateSpawnPosition()
+        private Vector2 CalculatePosition()
         {
             Vector2 velocity = _ball.GetComponent<Rigidbody2D>().velocity;
 
-            if (Mathf.Abs(velocity.x) > _velocityThreshold)
-                return (Vector2)_ball.transform.position + new Vector2(velocity.normalized.x * _offset.x, velocity.normalized.y * _offset.y + Random.Range(-_offset.y, _offset.y));
+            if (velocity.x > _velocityThreshold)
+            {
+                return (Vector2)_ball.transform.position + velocity.normalized * _offset;
+            }
 
             return Vector2.zero;
         }
