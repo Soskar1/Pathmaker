@@ -8,13 +8,19 @@ namespace Pathmaker.Core
     {
         [SerializeField] private float _updateRate;
         [SerializeField] private Transform _ball;
+        [SerializeField] private Game _game;
 
         private int _score = 0;
         private Vector2 _previousPosition;
 
         public Action<int> OnGainedPoints;
 
-        private void Awake() => StartCoroutine(GetPositionDifference());
+        private void Awake() => StartCounting();
+
+        private void OnEnable() => _game.EndingGame += StopCounting;
+        private void OnDisable() => _game.EndingGame -= StopCounting;
+
+        public void StartCounting() => StartCoroutine(GetPositionDifference());
 
         private IEnumerator GetPositionDifference()
         {
@@ -31,5 +37,7 @@ namespace Pathmaker.Core
             _score += points;
             OnGainedPoints?.Invoke(_score);
         }
+
+        private void StopCounting() => StopAllCoroutines();
     }
 }

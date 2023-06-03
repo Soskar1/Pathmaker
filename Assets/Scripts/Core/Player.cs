@@ -7,6 +7,7 @@ namespace Pathmaker.Core
     {
         [SerializeField] private Input _input;
         [SerializeField] private Drawing _drawing;
+        [SerializeField] private Game _game;
 
         private void OnEnable()
         {
@@ -16,6 +17,8 @@ namespace Pathmaker.Core
             _input.Controls.Brush.Draw.performed += Draw;
             _input.Controls.Brush.Draw.canceled += Draw;
 
+            _game.EndingGame += Deactivate;
+
             _input.Enable();
         }
 
@@ -24,7 +27,15 @@ namespace Pathmaker.Core
             _input.Controls.Brush.Draw.performed -= Draw;
             _input.Controls.Brush.Draw.canceled -= Draw;
 
+            _game.EndingGame -= Deactivate;
+
             _input.Disable();
+        }
+
+        private void Deactivate()
+        {
+            _input.Disable();
+            _drawing.StopDrawing();
         }
 
         private void Draw(InputAction.CallbackContext ctx) {
