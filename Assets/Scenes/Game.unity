@@ -512,7 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10ecd2d8d6475a143a49a3e4226895cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distance: 0.6
+  _distance: 0.65
   _groundLayers:
     serializedVersion: 2
     m_Bits: 64
@@ -1809,6 +1809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameOverMenu: {fileID: 291015982}
+  _material: {fileID: 2100000, guid: bd627670df3bbd14d8b8ad96ef03fcc8, type: 2}
 --- !u!1 &1477177093
 GameObject:
   m_ObjectHideFlags: 0
