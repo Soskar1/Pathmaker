@@ -3,17 +3,14 @@ using UnityEngine.InputSystem;
 
 namespace Pathmaker.Core
 {
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour, IInitializable
     {
         [SerializeField] private Input _input;
         [SerializeField] private Drawing _drawing;
         [SerializeField] private Game _game;
 
-        private void OnEnable()
+        public void Initialize()
         {
-            if (_input.Controls == null)
-                _input.Initialize();
-
             _input.Controls.Brush.Draw.performed += Draw;
             _input.Controls.Brush.Draw.canceled += Draw;
 

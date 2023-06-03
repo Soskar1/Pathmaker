@@ -6,6 +6,7 @@ namespace Pathmaker.Core
     {
         [SerializeField] private Game _game;
         [SerializeField] private Ball _ball;
+        [SerializeField] private StarCounter _starCounter;
 
         public static ServiceLocator Instance { get; private set; }
 
@@ -19,5 +20,6 @@ namespace Pathmaker.Core
 
         public Game Game => _game;
         public Ball Ball => _ball;
+        public StarCounter StarCounter => _starCounter;
     }
 }

@@ -1,16 +1,14 @@
-using Pathmaker.Core.TriggerableObjects;
 using UnityEngine;
 
 namespace Pathmaker.Core
 {
-    public class SpikeSpawner : MonoBehaviour, IInitializable
+    public class StarSpawner : MonoBehaviour, IInitializable
     {
         [SerializeField] private Ball _ball;
-        [SerializeField] private Spike _prefab;
+        [SerializeField] private Star _prefab;
         [SerializeField] private float _spawnRate;
         [SerializeField] private Vector2 _offset;
         [SerializeField] private float _velocityThreshold;
-        [SerializeField] private int _size;
 
         private bool _canSpawn = false;
 
@@ -27,16 +25,9 @@ namespace Pathmaker.Core
 
             if (_timer <= 0)
             {
-                for (int i = 0; i < _size; i++)
-                {
-                    Vector2 spawnPosition = CalculateSpawnPosition();
+                Vector2 spawnPosition = CalculateSpawnPosition();
+                Instantiate(_prefab, spawnPosition, Quaternion.identity);
 
-                    if (spawnPosition == Vector2.zero)
-                        continue;
-
-                    Instantiate(_prefab, spawnPosition, Quaternion.identity);
-                }
-                
                 _timer = _spawnRate;
             }
             else
