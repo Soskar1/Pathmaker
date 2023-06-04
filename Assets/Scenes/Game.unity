@@ -1670,7 +1670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90d4017168d52e641b340aecb9b872d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxVelocity: 15
+  _maxVelocity: 17
   _rigidbody: {fileID: 431114743}
 --- !u!1 &443031118
 GameObject:
@@ -7967,7 +7967,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6353450c21e5fb04eb2a0601e2c64e5d, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.197
+  m_Volume: 0.08
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -8974,10 +8974,14 @@ MonoBehaviour:
   - {fileID: 4400944433908118873, guid: 271b33d47cd8d6c45a69fa76176b824c, type: 3}
   - {fileID: 6398218865435102770, guid: 89e5903a7a3a27341908d5bac7236412, type: 3}
   - {fileID: 7471788773692617618, guid: 7fdaf8b9b84ca054bae95a7aef725cd7, type: 3}
+  - {fileID: 1293952201639900089, guid: 0735c57638a3ee14f8069b8484e8a168, type: 3}
+  - {fileID: 5050273112256215792, guid: c845232c9ac4aef468cb290512121e8b, type: 3}
+  - {fileID: 3537135041991569049, guid: abc61150dbe30564fb3cc1a393a99736, type: 3}
+  - {fileID: 5984516172408639005, guid: 3e8462c4ed3f8ee47895ddc74ee3b3a4, type: 3}
   _ball: {fileID: 431114744}
   _spawnRate: 2.75
   _velocityThreshold: 2
-  _offset: 17
+  _offset: 18
 --- !u!4 &1974739587
 Transform:
   m_ObjectHideFlags: 0
