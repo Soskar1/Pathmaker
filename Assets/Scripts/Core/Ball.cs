@@ -68,6 +68,7 @@ namespace Pathmaker.Core
 
         private void Deactivate()
         {
+            StopAllCoroutines();
             _rb2d.velocity = Vector2.zero;
             _rb2d.isKinematic = true;
 
