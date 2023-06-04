@@ -45,10 +45,8 @@ namespace Pathmaker.Core
         {
             Vector2 velocity = _ball.GetComponent<Rigidbody2D>().velocity;
 
-            if (velocity.x > _velocityThreshold)
-            {
+            if (Mathf.Abs(velocity.x) > _velocityThreshold)
                 return (Vector2)_ball.transform.position + velocity.normalized * _offset;
-            }
 
             return Vector2.zero;
         }
