@@ -1,5 +1,6 @@
 using Pathmaker.Core.TriggerableObjects;
 using UnityEngine;
+using System.Collections;
 
 namespace Pathmaker.Core
 {
@@ -17,6 +18,8 @@ namespace Pathmaker.Core
         [SerializeField] private Sprite _deadFace;
 
         [SerializeField] private GroundCheck _groundCheck;
+
+        [SerializeField] private float _dieTime;
 
         private bool _gameOver = true;
 
@@ -47,7 +50,19 @@ namespace Pathmaker.Core
                 }
             }
 
-            if (_groundCheck.CheckForGround() && _rb2d.velocity.magnitude <= _velocityThreshold)
+            if (_rb2d.velocity.magnitude <= _velocityThreshold &&
+                (_groundCheck.CheckForGround(Vector2.up) ||
+                _groundCheck.CheckForGround(Vector2.right) ||
+                _groundCheck.CheckForGround(Vector2.down) ||
+                _groundCheck.CheckForGround(Vector2.left)))
+                    StartCoroutine(DeathTimer());
+        }
+
+        private IEnumerator DeathTimer()
+        {
+            yield return new WaitForSeconds(_dieTime);
+
+            if (_rb2d.velocity.magnitude <= _velocityThreshold)
                 _game.GameOver();
         }
 

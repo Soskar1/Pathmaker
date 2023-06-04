@@ -21,5 +21,7 @@ namespace Pathmaker.Core
         }
             
         public void Restart() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        public void Exit() => Application.Quit();
     }
 }
